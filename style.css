@@ -1,6 +1,9 @@
 body {
     background: aquamarine;
 }
+h2 {
+    text-align: center;
+}
 
 .gameBoard {
 
@@ -12,7 +15,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 2em;
-
     justify-content: center;
     align-items: center;
 
@@ -38,7 +40,7 @@ body {
     display: flex;
     flex-direction: column;
 
-    
+
     background: yellow;
     width: 200px;
     padding: 1rem;
