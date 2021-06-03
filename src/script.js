@@ -28,13 +28,13 @@ let randomPokemonId = () => {
 
 
 const setPokemonArray = function(pokedexArray) {
-        for (let i = 0; i < 8; i++){
+        for (let i = 0; i < 8; i++) {
         let num = randomPokemonId();
         let pokemon = pokedexArray.results[num];
         pokemonArray.push(pokemon)
-        console.log(pokemonArray)
     }
-    fillGameBoard(pokemonArray)
+    let gameArray = [...pokemonArray, ...pokemonArray]  
+    fillGameBoard(gameArray)
 }
 
 fetch(BASEURL)
