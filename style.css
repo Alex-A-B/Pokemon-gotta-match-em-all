@@ -1,3 +1,59 @@
 body {
-    background-color: aquamarine;
+    background: aquamarine;
 }
+
+.gameBoard {
+
+    background: darkolivegreen;
+
+    min-width: 37.5rem;
+    max-width: 75rem;
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+
+    justify-content: center;
+    align-items: center;
+
+    margin: 2em;
+    padding: 2em 0.5em;
+    border: 2px solid black;
+    border-radius: 0.25em;
+
+    position: absolute;
+
+}
+
+.card {
+    background: paleturquoise;
+    width: 12.5rem;
+    padding: 1rem 2rem;
+    border-radius: 0.5em;
+
+    position: relative;
+}
+
+.cardFront {
+    display: flex;
+    flex-direction: column;
+
+    
+    background: yellow;
+    width: 200px;
+    padding: 1rem;
+
+    position: absolute;
+}
+
+.card-image {
+    max-width: 95%;
+}
+
+.cardBack {
+    background: blue;
+    width: 200px;
+
+    position: absolute;
+}
+
