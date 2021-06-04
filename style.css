@@ -49,7 +49,7 @@ h2 {
 }
 
 .card {
-    background: rgb(175, 200, 200);
+    background: rgb(175, 160, 130);
     width: 12.5rem;
     padding: 1rem 2rem;
 
@@ -65,10 +65,10 @@ h2 {
     display: flex;
     flex-direction: column;
 
-    background: rgb(90, 150, 190);
+    background: rgb(120, 140, 160);
     width: 12.5;
     padding: 1rem;
-    border: 1px solid rgb(20, 35, 44);
+    border: 3px solid rgb(20, 35, 44);
     -webkit-box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7); 
     box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7);
     border-radius: 0.5em;
