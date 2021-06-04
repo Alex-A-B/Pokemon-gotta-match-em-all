@@ -6,9 +6,10 @@ h2 {
 }
 
 #start {
-    width: 200em;
+    max-width: 75em;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .gameBoard {

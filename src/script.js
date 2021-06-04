@@ -36,12 +36,14 @@ const fillPokedex = (pokemon) => {
     .then(pokemon => renderCards(pokemon)) 
 }
 
-/* need to add this to a function rather than just on load, so it  *
- * can be added to a restart/new game button.                      */
-fetch(BASEURL)
-.then(response => response.json())
-// .then(pokedex => pokedex.results.forEach(pokemon => console.log(pokemon)))
-.then(pokedex => setPokemonArray(pokedex))
+/* Converted to a function, and called by DOMLoaded eventListener  *
+ * will be added to a restart/new game button. and play again      */
+const startGame = function() {
+        fetch(BASEURL)
+        .then(response => response.json())
+        // .then(pokedex => pokedex.results.forEach(pokemon => console.log(pokemon)))
+        .then(pokedex => setPokemonArray(pokedex))
+    }
 
 
 const gameBoard = document.querySelector(".gameBoard");
@@ -92,9 +94,13 @@ createCard.appendChild(createCardBack);
 gameBoard.appendChild(createCard)
 };
 
-const cardFront = document.querySelector(".card-front")
-const cardBack = document.querySelector(".card-back")
+// const cardFront = document.querySelector(".card-front")
+// const cardBack = document.querySelector(".card-back")
 
+
+// cardflip function - checks dataset-face value if up, then 'flip' displays
+// by displaying front, hiding back.
+// placeholder ELSE before card match logic is applied. 
 
 const cardflip = function() {
     console.log("clicked")
@@ -103,6 +109,7 @@ const cardflip = function() {
             this.lastChild.style.display = "none"
             this.firstChild.style.display = "block"
     } else {
+        // place holder to reset the cards while actual match system is made
         this.dataset.face = "down"
         this.lastChild.style.display = "block"
         this.firstChild.style.display = "none"
@@ -110,24 +117,6 @@ const cardflip = function() {
 }
 
 
-/*
-What is a card?
+/* DOM loaded event listener to arrange game assets on load */
+document.addEventListener("DOMContentLoaded", startGame)
 
-create div.card
-create div.card__face
-create div.card__back
-
-card__face elements
-create nameplate (h3?)
-create image
-create info plate (type, environment/region)
-
-card__back element
-card image/css to build?
-
-
-from Fetch get images
-ID link to image
-image to sit inside card
-
-*/
