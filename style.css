@@ -1,8 +1,14 @@
 body {
-    background: aquamarine;
+    background: white;
 }
 h2 {
     text-align: center;
+}
+
+#start {
+    width: 200em;
+    display: flex;
+    align-items: center;
 }
 
 .gameBoard {
