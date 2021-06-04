@@ -32,7 +32,7 @@ const fillPokedex = (pokemon) => {
     let pokeURL = pokemon.url
     fetch(pokeURL)    
     .then(response => response.json())
-    // .then(pokemon => console.log(pokemon)) 
+    // .then(pokemon => console.log(pokemon))        /* to view poke specific pokemon api in console*/
     .then(pokemon => renderCards(pokemon)) 
 }
 
@@ -53,9 +53,12 @@ const renderCards = function(pokedex) {
 // card
 const createCard = document.createElement("div")
 createCard.className = "card"
+createCard.addEventListener("click", cardflip)
 // card front
 const createCardFront = document.createElement("div")
 createCardFront.className = "card-front"
+createCardFront.dataset.dexid = pokedex.id
+createCardFront.style.display = "none"
 // front elements - name, image, info panel
 const cardHeader = document.createElement("h2")
 cardHeader.innerText = `${pokedex.species.name.toUpperCase()}`                 
@@ -75,6 +78,12 @@ createCardFront.appendChild(cardImage)
 // card back
 const createCardBack = document.createElement("div")
 createCardBack.className = "card-back"
+createCardBack.style.display = "block"
+
+const cardBackImg = document.createElement("img")
+cardBackImg.className = "card-back"
+cardBackImg.src = "assets/cardBack.png"
+createCardBack.appendChild(cardBackImg)
 
 // put it together
 createCard.appendChild(createCardFront);
@@ -82,7 +91,9 @@ createCard.appendChild(createCardBack);
 gameBoard.appendChild(createCard)
 };
 
-
+const cardflip = () => {
+    console.log("clicked")
+}
 
 
 /*

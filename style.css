@@ -48,7 +48,7 @@ h2 {
 
 
     background: yellow;
-    width: 200px;
+    width: 300px;
     padding: 1rem;
 
     position: absolute;
@@ -58,9 +58,17 @@ h2 {
     max-width: 95%;
 }
 
+.card-back {
+    max-width: 100%;
+}
+
 .cardBack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     background: blue;
-    width: 200px;
+    max-width: 300px;
 
     position: absolute;
 }
