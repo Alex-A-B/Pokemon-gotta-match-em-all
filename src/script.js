@@ -49,7 +49,7 @@ const startGame = function() {
 const gameBoard = document.querySelector(".gameBoard");
 
 /* card render function - builds the cards for the game. Scaled back *
- * for MVP - may need to add an ID# for logic checking when matching */
+ * for MVP, name, image and ID taken from API to display and match.  */
 // render cards
 const renderCards = function(pokedex) {
 // card
@@ -97,8 +97,28 @@ gameBoard.appendChild(createCard)
 // const cardFront = document.querySelector(".card-front")
 // const cardBack = document.querySelector(".card-back")
 
-let activeCards = []; // array for active cards
 
+// cardflip function - checks dataset-face value if data-face = DOWN, 
+// then 'flip' card displays by displaying front, hiding back.
+// passes to new function cardBecomesActive
+const cardflip = function() {
+    if (this.dataset.face === "down") {
+        this.dataset.face = "up"
+        this.lastChild.style.display = "none"
+        this.firstChild.style.display = "block"
+        this.classList.toggle("disabled")
+        cardBecomesActive(this)
+    } 
+}
+
+// array for active cards
+let activeCards = []; 
+
+// active card function - push the card to activeCards array.
+// checks array length, if length == 2 then checks for match, else carry on.
+// if matched cards remain in face UP state, empties activeCard Array
+// if not matched setTimeout function resets the card states, by calling cardReset
+// for each card in array, then empties activeCard array
 const cardBecomesActive = function(card) {
     activeCards.push(card);
     let length = activeCards.length;
@@ -116,8 +136,7 @@ const cardBecomesActive = function(card) {
         }
     }
 }
-
-
+// cardReset Function resets the cards and removes disabled state
 const cardReset = function(card) {
     card.dataset.face = "down"
     card.lastChild.style.display = "block"
@@ -126,27 +145,18 @@ const cardReset = function(card) {
 }
 
 
-// cardflip function - checks dataset-face value if up, then 'flip' displays
-// by displaying front, hiding back.
-// placeholder ELSE before card match logic is applied. 
-const cardflip = function() {
-    if (this.dataset.face === "down") {
-        this.dataset.face = "up"
-        this.lastChild.style.display = "none"
-        this.firstChild.style.display = "block"
-        this.classList.toggle("disabled")
-        cardBecomesActive(this)
-    } 
+// to move to top 
+const restartPokeball = document.querySelector(".restart")
+
+// restart function
+const restartGame = () => {
+    gameBoard.innerHTML = "";
+    startGame();
 }
 
 /* Event Listener to get functioning Restart button */
-const pokeball = document.querySelector(".restart")
-
-pokeball.addEventListener("click", () => {
-    location.reload()
-})
-
+restartPokeball.addEventListener("click", restartGame);
 
 /* DOM loaded event listener to arrange game assets on load */
-document.addEventListener("DOMContentLoaded", startGame)
+document.addEventListener("DOMContentLoaded", startGame);
 

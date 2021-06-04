@@ -1,28 +1,35 @@
 body {
     background: white;
 }
+
 h2 {
     text-align: center;
 }
 
 #start {
-    max-width: 75em;
+    max-width: 50em;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 1.5em;
+    color: #092B54;
+    font-weight: normal;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
 }
 
 .restart:hover {
     cursor: pointer;
     border-radius: 50%; 
-
-
 }
 
 .gameBoard {
 
     background: burlywood;
-
+ 
     min-width: 37.5rem;
     max-width: 75rem;
     
@@ -42,7 +49,7 @@ h2 {
 }
 
 .card {
-    background: rgb(90, 135, 135);
+    background: rgb(175, 200, 200);
     width: 12.5rem;
     padding: 1rem 2rem;
 
@@ -54,35 +61,42 @@ h2 {
     position: relative;
 }
 
-.cardFront {
+.card-front {
     display: flex;
     flex-direction: column;
 
-
-    background: yellow;
-    width: 300px;
+    background: rgb(90, 150, 190);
+    width: 12.5;
     padding: 1rem;
+    border: 1px solid rgb(20, 35, 44);
+    -webkit-box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7); 
+    box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7);
+    border-radius: 0.5em;
 
-    position: absolute;
+    position: relative;
 }
 
 .card-image {
-    max-width: 95%;
-}
-
-.card-back {
     max-width: 100%;
 }
 
-.cardBack {
+.card-back {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    background: blue;
-    max-width: 300px;
+    background: rgb(20, 35, 44);
+    max-width: 12.5rem;
+    border: 1px solid rgb(20, 35, 44);
+    -webkit-box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7); 
+    box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7);
+    border-radius: 0.5em;
 
-    position: absolute;
+    position: relative;
+}
+
+.card-back:hover {
+    transform:translateY(-2px)
 }
 
 .disabled {
