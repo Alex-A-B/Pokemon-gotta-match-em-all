@@ -53,6 +53,7 @@ const renderCards = function(pokedex) {
 // card
 const createCard = document.createElement("div")
 createCard.className = "card"
+createCard.dataset.face = "down"
 createCard.addEventListener("click", cardflip)
 // card front
 const createCardFront = document.createElement("div")
@@ -91,8 +92,21 @@ createCard.appendChild(createCardBack);
 gameBoard.appendChild(createCard)
 };
 
-const cardflip = () => {
+const cardFront = document.querySelector(".card-front")
+const cardBack = document.querySelector(".card-back")
+
+
+const cardflip = function() {
     console.log("clicked")
+    if (this.dataset.face == "down") {
+            this.dataset.face = "up"
+            this.lastChild.style.display = "none"
+            this.firstChild.style.display = "block"
+    } else {
+        this.dataset.face = "down"
+        this.lastChild.style.display = "block"
+        this.firstChild.style.display = "none"
+    }
 }
 
 

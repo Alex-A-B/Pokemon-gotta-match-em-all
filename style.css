@@ -13,7 +13,7 @@ h2 {
 
 .gameBoard {
 
-    background: darkolivegreen;
+    background: burlywood;
 
     min-width: 37.5rem;
     max-width: 75rem;
@@ -34,9 +34,11 @@ h2 {
 }
 
 .card {
-    background: paleturquoise;
+    background: rgb(90, 135, 135);
     width: 12.5rem;
     padding: 1rem 2rem;
+
+    border: 1px solid black;
     border-radius: 0.5em;
 
     position: relative;
