@@ -116,6 +116,14 @@ const cardflip = function() {
     }
 }
 
+/* Event Listener to get functioning Restart button */
+
+const pokeball = document.querySelector(".restart")
+
+pokeball.addEventListener("click", () => {
+    location.reload()
+})
+
 
 /* DOM loaded event listener to arrange game assets on load */
 document.addEventListener("DOMContentLoaded", startGame)
