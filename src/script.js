@@ -23,8 +23,8 @@ let randomPokemonId = () => {
 }
 
 /* function to take the game array and  */
-const fillGameBoard = function(pokeArray){
-    pokeArray.forEach(pokemon => fillPokedex(pokemon))
+const fillGameBoard = function(gameArray){
+    gameArray.forEach(pokemon => fillPokedex(pokemon))
 }
 /* function to create the cards based on initial fetch info, which *
  * is then worked to create the gameBoard with the cards in play.  */
