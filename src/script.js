@@ -97,27 +97,49 @@ gameBoard.appendChild(createCard)
 // const cardFront = document.querySelector(".card-front")
 // const cardBack = document.querySelector(".card-back")
 
+let activeCards = []; // array for active cards
+
+const cardBecomesActive = function(card) {
+    activeCards.push(card);
+    let length = activeCards.length;
+    console.log(activeCards)
+    if (length === 2) {
+        if(activeCards[0].firstChild.dataset.dexid === activeCards[1].firstChild.dataset.dexid) {
+            console.log("we have a match")
+            activeCards = []; /* ADD function/graphic bloom for correct */
+        } else {
+            console.log("we didn't match")
+            setTimeout(function(){
+                activeCards.forEach(card => cardReset(card));
+                activeCards = [];
+            }, 1200);
+        }
+    }
+}
+
+
+const cardReset = function(card) {
+    card.dataset.face = "down"
+    card.lastChild.style.display = "block"
+    card.firstChild.style.display = "none"
+    card.classList.toggle("disabled") 
+}
+
 
 // cardflip function - checks dataset-face value if up, then 'flip' displays
 // by displaying front, hiding back.
 // placeholder ELSE before card match logic is applied. 
-
 const cardflip = function() {
-    console.log("clicked")
-    if (this.dataset.face == "down") {
-            this.dataset.face = "up"
-            this.lastChild.style.display = "none"
-            this.firstChild.style.display = "block"
-    } else {
-        // place holder to reset the cards while actual match system is made
-        this.dataset.face = "down"
-        this.lastChild.style.display = "block"
-        this.firstChild.style.display = "none"
-    }
+    if (this.dataset.face === "down") {
+        this.dataset.face = "up"
+        this.lastChild.style.display = "none"
+        this.firstChild.style.display = "block"
+        this.classList.toggle("disabled")
+        cardBecomesActive(this)
+    } 
 }
 
 /* Event Listener to get functioning Restart button */
-
 const pokeball = document.querySelector(".restart")
 
 pokeball.addEventListener("click", () => {

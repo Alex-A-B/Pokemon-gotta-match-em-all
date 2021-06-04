@@ -85,3 +85,6 @@ h2 {
     position: absolute;
 }
 
+.disabled {
+    pointer-events: none;
+}
