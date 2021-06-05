@@ -1,11 +1,21 @@
 // fetch() code and console log
 
-/*  variable to have the Base URL for the fetch - prevent typos! */
+/*  variable to have the Base URL for the fetch - prevent typos!     */
 const BASEURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
 
-/*  function to set board size which is #pairs of chars to match *
- *  Will be looking to set some repeat protection via if in the  *
- *  loop. Seek to increase the board size for #pairs via toggle  */
+/* Converted to a function, and called by DOMLoaded eventListener    *
+ * will be added to a restart/new game button. and play again        */
+ const startGame = function() {
+    fetch(BASEURL)
+    .then(response => response.json())
+    // .then(pokedex => pokedex.results.forEach(pokemon => console.log(pokemon)))
+    .then(pokedex => setPokemonArray(pokedex))
+}
+
+/*  function to set board size which is #pairs of chars to match     *
+ *  Poss Features:                                                   *
+ *  Will be looking to set some repeat protection via if in the      *
+ *  loop. Seek to increase the board size for #pairs via toggle      */
 const setPokemonArray = function(pokedexArray) {
     const pokemonArray = [];
     for (let i = 0; i < 8; i++) {
@@ -14,6 +24,12 @@ const setPokemonArray = function(pokedexArray) {
         pokemonArray.push(pokemon)
     }
     const gameArray = [...pokemonArray, ...pokemonArray]  
+    console.log("initial arrays")
+    console.log(pokemonArray)
+    console.log(gameArray)
+    debugger
+    // hindsight and play tests have shown that relying on latency isn't optimal
+    // instead looking to use the Fisher-Yates/Knuth methodology
     fillGameBoard(gameArray)
 }
 
@@ -22,12 +38,34 @@ let randomPokemonId = () => {
     return Math.floor(Math.random() * 151)
 }
 
+/* A shuffle is required - JS has no native shuffle of an array.    *
+ * the most popular method is the Fisher-Yates (or Knuth) Shuffle   */
+const shuffleGame = function(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    console.log("shuffled big array (used debugger to capture)")
+    console.log(array)
+    return array;
+};
+
+let gameDeck = [];
+
 /* function to take the game array and  */
 const fillGameBoard = function(gameArray){
-    gameArray.forEach(pokemon => fillPokedex(pokemon))
+    gameDeck = shuffleGame(gameArray);
+    // console.log(3)
+    // console.log(gameDeck);
+    gameDeck.forEach(pokemon => fillPokedex(pokemon))
 }
-/* function to create the cards based on initial fetch info, which *
- * is then worked to create the gameBoard with the cards in play.  */
+/* function to create the cards based on initial fetch info, which   *
+ * is then worked to create the gameBoard with the cards in play.    */
 const fillPokedex = (pokemon) => {
     let pokeURL = pokemon.url
     fetch(pokeURL)    
@@ -36,16 +74,7 @@ const fillPokedex = (pokemon) => {
     .then(pokemon => renderCards(pokemon)) 
 }
 
-/* Converted to a function, and called by DOMLoaded eventListener  *
- * will be added to a restart/new game button. and play again      */
-const startGame = function() {
-        fetch(BASEURL)
-        .then(response => response.json())
-        // .then(pokedex => pokedex.results.forEach(pokemon => console.log(pokemon)))
-        .then(pokedex => setPokemonArray(pokedex))
-    }
-
-
+/*  variable to quickly select the gameBoard div in the DOM          */ 
 const gameBoard = document.querySelector(".gameBoard");
 
 /* card render function - builds the cards for the game. Scaled back *
@@ -125,13 +154,20 @@ const cardBecomesActive = function(card) {
     console.log(activeCards)
     if (length === 2) {
         if(activeCards[0].firstChild.dataset.dexid === activeCards[1].firstChild.dataset.dexid) {
-            console.log("we have a match")
-            activeCards = []; /* ADD function/graphic bloom for correct */
+            activeCards[0].firstChild.classList.toggle("matched")
+            activeCards[1].firstChild.classList.toggle("matched")
+            setTimeout(function(){
+                activeCards[0].firstChild.classList.toggle("matched")
+                activeCards[1].firstChild.classList.toggle("matched")
+                activeCards = [];
+            }, 1000)
+             /* ADD function/graphic bloom for correct */
         } else {
-            console.log("we didn't match")
+            disableBoard()
             setTimeout(function(){
                 activeCards.forEach(card => cardReset(card));
                 activeCards = [];
+                enableBoard()
             }, 1200);
         }
     }
@@ -144,6 +180,13 @@ const cardReset = function(card) {
     card.classList.toggle("disabled") 
 }
 
+const disableBoard = function() {
+    gameBoard.classList.toggle("disabled")
+}
+
+const enableBoard = function() {
+    gameBoard.classList.toggle("disabled")
+}
 
 // to move to top 
 const restartPokeball = document.querySelector(".restart")
