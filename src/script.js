@@ -24,12 +24,11 @@ const setPokemonArray = function(pokedexArray) {
         pokemonArray.push(pokemon)
     }
     const gameArray = [...pokemonArray, ...pokemonArray]  
-    console.log("initial arrays")
-    console.log(pokemonArray)
-    console.log(gameArray)
-    debugger
-    // hindsight and play tests have shown that relying on latency isn't optimal
-    // instead looking to use the Fisher-Yates/Knuth methodology
+    // debugging code
+    // console.log("initial arrays")
+    // console.log(pokemonArray)
+    // console.log(gameArray)
+    // debugger
     fillGameBoard(gameArray)
 }
 
@@ -38,7 +37,8 @@ let randomPokemonId = () => {
     return Math.floor(Math.random() * 151)
 }
 
-/* A shuffle is required - JS has no native shuffle of an array.    *
+/* hindsight and play tests have shown that relying on latency isn't optimal
+ * A shuffle is required - JS has no native shuffle of an array.    *
  * the most popular method is the Fisher-Yates (or Knuth) Shuffle   */
 const shuffleGame = function(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -50,8 +50,9 @@ const shuffleGame = function(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-    console.log("shuffled big array (used debugger to capture)")
-    console.log(array)
+    // debugging
+    // console.log("shuffled big array (used debugger to capture)")
+    // console.log(array)
     return array;
 };
 
@@ -60,8 +61,6 @@ let gameDeck = [];
 /* function to take the game array and  */
 const fillGameBoard = function(gameArray){
     gameDeck = shuffleGame(gameArray);
-    // console.log(3)
-    // console.log(gameDeck);
     gameDeck.forEach(pokemon => fillPokedex(pokemon))
 }
 /* function to create the cards based on initial fetch info, which   *
@@ -160,8 +159,7 @@ const cardBecomesActive = function(card) {
                 activeCards[0].firstChild.classList.toggle("matched")
                 activeCards[1].firstChild.classList.toggle("matched")
                 activeCards = [];
-            }, 1000)
-             /* ADD function/graphic bloom for correct */
+            }, 1200)            
         } else {
             disableBoard()
             setTimeout(function(){

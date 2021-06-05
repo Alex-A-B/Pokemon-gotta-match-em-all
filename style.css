@@ -68,7 +68,7 @@ h2 {
     background: rgb(120, 140, 160);
     width: 12.5;
     padding: 1rem;
-    border: 10px solid rgb(20, 35, 44);
+    border: 10px solid rgb(25, 38, 83);
     -webkit-box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7); 
     box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7);
     border-radius: 0.5em;
@@ -85,9 +85,9 @@ h2 {
     flex-direction: column;
     align-items: center;
 
-    background: rgb(20, 35, 44);
+    background: rgb(25, 38, 83);
     max-width: 12.5rem;
-    border: 1px solid rgb(20, 35, 44);
+    border: 1px solid rgb(25, 38, 83);
     -webkit-box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7); 
     box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7);
     border-radius: 0.5em;
