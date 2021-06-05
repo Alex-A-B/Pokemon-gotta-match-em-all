@@ -92,7 +92,7 @@ createCardFront.dataset.dexid = pokedex.id
 createCardFront.style.display = "none"
 // front elements - name, image, info panel
 const cardHeader = document.createElement("h2")
-cardHeader.innerText = `${pokedex.species.name.toUpperCase()}`                 
+cardHeader.innerText = `${pokedex.species.name}`                 
 createCardFront.appendChild(cardHeader)
 
 const cardImage = document.createElement("img")
@@ -150,7 +150,7 @@ let activeCards = [];
 const cardBecomesActive = function(card) {
     activeCards.push(card);
     let length = activeCards.length;
-    console.log(activeCards)
+    // console.log(activeCards)
     if (length === 2) {
         if(activeCards[0].firstChild.dataset.dexid === activeCards[1].firstChild.dataset.dexid) {
             activeCards[0].firstChild.classList.toggle("matched")
