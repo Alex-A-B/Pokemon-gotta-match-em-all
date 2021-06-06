@@ -85,6 +85,7 @@ const createCard = document.createElement("div")
 createCard.className = "card"
 createCard.dataset.face = "down"
 createCard.addEventListener("click", cardflip)
+createCard.addEventListener("click", checkForWinCondition)
 // card front
 const createCardFront = document.createElement("div")
 createCardFront.className = "card-front"
@@ -153,11 +154,13 @@ const cardBecomesActive = function(card) {
     // console.log(activeCards)
     if (length === 2) {
         if(activeCards[0].firstChild.dataset.dexid === activeCards[1].firstChild.dataset.dexid) {
-            activeCards[0].firstChild.classList.toggle("matched")
-            activeCards[1].firstChild.classList.toggle("matched")
+            activeCards[0].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
+            activeCards[1].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
+            activeCards[0].classList.toggle("match")
+            activeCards[1].classList.toggle("match")
             setTimeout(function(){
-                activeCards[0].firstChild.classList.toggle("matched")
-                activeCards[1].firstChild.classList.toggle("matched")
+                activeCards[0].style.backgroundImage = "";
+                activeCards[1].style.backgroundImage = "";
                 activeCards = [];
             }, 1200)            
         } else {
@@ -165,8 +168,9 @@ const cardBecomesActive = function(card) {
             setTimeout(function(){
                 activeCards.forEach(card => cardReset(card));
                 activeCards = [];
-                enableBoard()
+                enableBoard();
             }, 1200);
+            
         }
     }
 }
@@ -177,11 +181,11 @@ const cardReset = function(card) {
     card.firstChild.style.display = "none"
     card.classList.toggle("disabled") 
 }
-
+// disables the board so you can't click extra cards 
 const disableBoard = function() {
     gameBoard.classList.toggle("disabled")
 }
-
+// enables the board so you can click extra cards again
 const enableBoard = function() {
     gameBoard.classList.toggle("disabled")
 }
@@ -193,6 +197,15 @@ const restartPokeball = document.querySelector(".restart")
 const restartGame = () => {
     gameBoard.innerHTML = "";
     startGame();
+}
+
+const cards = document.getElementsByClassName("match")
+
+const checkForWinCondition = function() {
+    if(cards.length === 16) {
+        setTimeout(function(){
+        alert ("win!")}, 500)
+    }
 }
 
 /* Event Listener to get functioning Restart button */
