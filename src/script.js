@@ -92,14 +92,15 @@ createCardFront.className = "card-front"
 createCardFront.dataset.dexid = pokedex.id
 createCardFront.style.display = "none"
 // front elements - name, image, info panel
-const cardHeader = document.createElement("h2")
-cardHeader.innerText = `${pokedex.species.name}`                 
-createCardFront.appendChild(cardHeader)
 
 const cardImage = document.createElement("img")
 cardImage.className = "card-image"
 cardImage.src = pokedex.sprites.other[`official-artwork`].front_default        
 createCardFront.appendChild(cardImage)
+
+const cardHeader = document.createElement("h2")
+cardHeader.innerText = `${pokedex.species.name}`                 
+createCardFront.appendChild(cardHeader)
 
 /* not needed for MVP */
 // const cardInfo = document.createElement("p")
@@ -133,6 +134,9 @@ gameBoard.appendChild(createCard)
 const cardflip = function() {
     if (this.dataset.face === "down") {
         this.dataset.face = "up"
+        // // setTimeout(function(){this.lastChild.style.display = "none"}, 500);
+        // this.lastChild.style.transform = "rotatey(180deg)";
+	    // this.lastChild.style.transitionDuration = "0.5s";
         this.lastChild.style.display = "none"
         this.firstChild.style.display = "block"
         this.classList.toggle("disabled")
@@ -154,6 +158,7 @@ const cardBecomesActive = function(card) {
     // console.log(activeCards)
     if (length === 2) {
         if(activeCards[0].firstChild.dataset.dexid === activeCards[1].firstChild.dataset.dexid) {
+            disableBoard();
             activeCards[0].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
             activeCards[1].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
             activeCards[0].classList.toggle("match")
@@ -162,6 +167,7 @@ const cardBecomesActive = function(card) {
                 activeCards[0].style.backgroundImage = "";
                 activeCards[1].style.backgroundImage = "";
                 activeCards = [];
+                enableBoard();
             }, 1200)            
         } else {
             disableBoard()

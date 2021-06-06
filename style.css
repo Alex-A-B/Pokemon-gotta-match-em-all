@@ -52,7 +52,7 @@ h2 {
 .card {
     background: rgb(175, 160, 130);
     width: 12.5rem;
-    padding: 1rem 2rem;
+    padding: 0.9375rem 2rem;
 
     border: 1px solid black;
     border-radius: 0.5em;
@@ -64,11 +64,12 @@ h2 {
 
 .card-front {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
 
-    background: rgb(120, 140, 160);
-    width: 12.5;
-    padding: 1rem;
+    background: rgb(203, 219, 236);
+    max-width: 12.5em;
+    margin: 0.25rem 0;
+    padding: 1.9rem;
     border: 10px solid rgb(25, 38, 83);
     -webkit-box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7); 
     box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7);
@@ -79,6 +80,10 @@ h2 {
 
 .card-image {
     max-width: 100%;
+    background: whitesmoke;
+    margin: 0.56px 0;
+    border: 1px solid rgb(25, 38, 83);
+
 }
 
 .card-back {
@@ -87,7 +92,7 @@ h2 {
     align-items: center;
 
     background: rgb(25, 38, 83);
-    max-width: 12.5rem;
+    max-width: 12.5em;
     border: 1px solid rgb(25, 38, 83);
     -webkit-box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7); 
     box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7);
