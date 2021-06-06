@@ -65,11 +65,11 @@ h2 {
 .card-front {
     display: flex;
     flex-direction: column-reverse;
-
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: rgb(25, 38, 83);
     background: rgb(203, 219, 236);
     max-width: 12.5em;
-    margin: 0.25rem 0;
-    padding: 1.9rem;
+    padding: 1rem;
     border: 10px solid rgb(25, 38, 83);
     -webkit-box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7); 
     box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7);
@@ -81,7 +81,7 @@ h2 {
 .card-image {
     max-width: 100%;
     background: whitesmoke;
-    margin: 0.56px 0;
+    /* margin: 0.5px 0; */
     border: 1px solid rgb(25, 38, 83);
 
 }
@@ -93,6 +93,7 @@ h2 {
 
     background: rgb(25, 38, 83);
     max-width: 12.5em;
+    margin: 1.5px 0;
     border: 1px solid rgb(25, 38, 83);
     -webkit-box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7); 
     box-shadow: 5px 5px 10px 0px rgba(26,78,125,0.7);
@@ -101,9 +102,9 @@ h2 {
     position: relative;
 }
 
-.card-back:hover {
+/* .card-back:hover {
     transform: translateY(-2px);
-}
+} */
 
 .disabled {
     pointer-events: none;

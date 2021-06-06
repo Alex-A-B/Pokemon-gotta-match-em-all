@@ -33,7 +33,7 @@ const setPokemonArray = function(pokedexArray) {
 }
 
 /* get random number function for the gameBoard cards */
-let randomPokemonId = () => {
+let randomPokemonId = function() {
     return Math.floor(Math.random() * 151)
 }
 
@@ -50,7 +50,7 @@ const shuffleGame = function(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-    // debugging
+    // debugging code 
     // console.log("shuffled big array (used debugger to capture)")
     // console.log(array)
     return array;
@@ -59,8 +59,9 @@ const shuffleGame = function(array) {
 let gameDeck = [];
 
 /* function to take the game array and  */
-const fillGameBoard = function(gameArray){
+const fillGameBoard = function(gameArray) {
     gameDeck = shuffleGame(gameArray);
+    // console.log(gameDeck)
     gameDeck.forEach(pokemon => fillPokedex(pokemon))
 }
 /* function to create the cards based on initial fetch info, which   *
@@ -112,6 +113,8 @@ createCardFront.appendChild(cardHeader)
 const createCardBack = document.createElement("div")
 createCardBack.className = "card-back"
 createCardBack.style.display = "block"
+createCardBack.addEventListener("mouseover", liftUp)
+createCardBack.addEventListener("mouseout", putDown)
 
 const cardBackImg = document.createElement("img")
 cardBackImg.className = "card-back"
@@ -123,6 +126,14 @@ createCard.appendChild(createCardFront);
 createCard.appendChild(createCardBack);
 gameBoard.appendChild(createCard)
 };
+
+// modal stuff
+const renderModal = function(){
+
+}
+
+// turn counter
+let turns = 0
 
 // const cardFront = document.querySelector(".card-front")
 // const cardBack = document.querySelector(".card-back")
@@ -157,6 +168,7 @@ const cardBecomesActive = function(card) {
     let length = activeCards.length;
     // console.log(activeCards)
     if (length === 2) {
+        turns ++
         if(activeCards[0].firstChild.dataset.dexid === activeCards[1].firstChild.dataset.dexid) {
             disableBoard();
             activeCards[0].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
@@ -201,6 +213,7 @@ const restartPokeball = document.querySelector(".restart")
 
 // restart function
 const restartGame = () => {
+    turns = 0;
     gameBoard.innerHTML = "";
     startGame();
 }
@@ -210,8 +223,17 @@ const cards = document.getElementsByClassName("match")
 const checkForWinCondition = function() {
     if(cards.length === 16) {
         setTimeout(function(){
-        alert ("win!")}, 500)
+        alert (`You did it! You took ${turns} turns`)}, 500)
     }
+}
+
+// helper functions for eventListener
+const liftUp = function() {
+    this.style.transform = "translateY(-2px)";
+}
+// helper function for eventListener
+const putDown = function() {
+    this.style.transform = "";
 }
 
 /* Event Listener to get functioning Restart button */
