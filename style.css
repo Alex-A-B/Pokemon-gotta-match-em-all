@@ -1,5 +1,7 @@
 body {
-    background: white;
+    background-color: white;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: #092B54;
 }
 
 h2 {
@@ -22,7 +24,7 @@ h2 {
     text-transform: none;
 }
 
-.restart:hover {
+.restart {
     cursor: pointer;
     border-radius: 50%; 
 }
@@ -33,7 +35,7 @@ h2 {
  
     min-width: 37.5rem;
     max-width: 75rem;
-    
+    z-index: 0;
     display: flex;
     flex-wrap: wrap;
     gap: 2em;
@@ -105,6 +107,44 @@ h2 {
 /* .card-back:hover {
     transform: translateY(-2px);
 } */
+
+.victory {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+  }
+  /* Modal Content/Box */
+.victory-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 1px solid #888;
+    border-radius: 0.5em;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
 .disabled {
     pointer-events: none;

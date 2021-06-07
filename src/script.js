@@ -53,6 +53,7 @@ const shuffleGame = function(array) {
     // debugging code 
     // console.log("shuffled big array (used debugger to capture)")
     // console.log(array)
+    // debugger
     return array;
 };
 
@@ -60,7 +61,7 @@ let gameDeck = [];
 
 /* function to take the game array and  */
 const fillGameBoard = function(gameArray) {
-    gameDeck = shuffleGame(gameArray);
+    gameDeck = shuffleGame(shuffleGame(gameArray));
     // console.log(gameDeck)
     gameDeck.forEach(pokemon => fillPokedex(pokemon))
 }
@@ -81,54 +82,72 @@ const gameBoard = document.querySelector(".gameBoard");
  * for MVP, name, image and ID taken from API to display and match.  */
 // render cards
 const renderCards = function(pokedex) {
-// card
-const createCard = document.createElement("div")
-createCard.className = "card"
-createCard.dataset.face = "down"
-createCard.addEventListener("click", cardflip)
-createCard.addEventListener("click", checkForWinCondition)
-// card front
-const createCardFront = document.createElement("div")
-createCardFront.className = "card-front"
-createCardFront.dataset.dexid = pokedex.id
-createCardFront.style.display = "none"
-// front elements - name, image, info panel
+    // card
+    const createCard = document.createElement("div")
+    createCard.className = "card"
+    createCard.dataset.face = "down"
+    createCard.addEventListener("click", cardflip)
+    createCard.addEventListener("click", checkForWinCondition)
+    // card front
+    const createCardFront = document.createElement("div")
+    createCardFront.className = "card-front"
+    createCardFront.dataset.dexid = pokedex.id
+    createCardFront.style.display = "none"
+    // front elements - name, image, info panel
 
-const cardImage = document.createElement("img")
-cardImage.className = "card-image"
-cardImage.src = pokedex.sprites.other[`official-artwork`].front_default        
-createCardFront.appendChild(cardImage)
+    const cardImage = document.createElement("img")
+    cardImage.className = "card-image"
+    cardImage.src = pokedex.sprites.other[`official-artwork`].front_default        
+    createCardFront.appendChild(cardImage)
 
-const cardHeader = document.createElement("h2")
-cardHeader.innerText = `${pokedex.species.name}`                 
-createCardFront.appendChild(cardHeader)
+    const cardHeader = document.createElement("h2")
+    cardHeader.innerText = `${pokedex.species.name}`                 
+    createCardFront.appendChild(cardHeader)
 
-/* not needed for MVP */
-// const cardInfo = document.createElement("p")
-// cardInfo.className = "card-info"
-// cardInfo.innerText = "some interesting facts about the image"                
-// createCardFront.appendChild(cardInfo)
+    /* not needed for MVP */
+    // const cardInfo = document.createElement("p")
+    // cardInfo.className = "card-info"
+    // cardInfo.innerText = "some interesting facts about the image"                
+    // createCardFront.appendChild(cardInfo)
 
-// card back
-const createCardBack = document.createElement("div")
-createCardBack.className = "card-back"
-createCardBack.style.display = "block"
-createCardBack.addEventListener("mouseover", liftUp)
-createCardBack.addEventListener("mouseout", putDown)
+    // card back
+    const createCardBack = document.createElement("div")
+    createCardBack.className = "card-back"
+    createCardBack.style.display = "block"
+    createCardBack.addEventListener("mouseover", liftUp)
+    createCardBack.addEventListener("mouseout", putDown)
 
-const cardBackImg = document.createElement("img")
-cardBackImg.className = "card-back"
-cardBackImg.src = "assets/cardBack.png"
-createCardBack.appendChild(cardBackImg)
+    const cardBackImg = document.createElement("img")
+    cardBackImg.className = "card-back"
+    cardBackImg.src = "assets/cardBack.png"
+    createCardBack.appendChild(cardBackImg)
 
-// put it together
-createCard.appendChild(createCardFront);
-createCard.appendChild(createCardBack);
-gameBoard.appendChild(createCard)
+    // put it together
+    createCard.appendChild(createCardFront);
+    createCard.appendChild(createCardBack);
+    gameBoard.appendChild(createCard)
 };
 
 // modal stuff
 const renderModal = function(){
+    const modalDiv = document.createElement("div")
+    modalDiv.className = "victory"
+
+    const modalContent = document.createElement("div")
+    modalContent.className = "modal-content"
+
+    const createClose = document.createElement("span")
+    createClose.className = "close"
+    createClose.innerText = "X"
+    createClose.addEventListener("click", closeVictoryWindow)
+
+    const createPara = document.createElement("p")
+    createPara.innerText = `Congratulations! You took ${turns} turns to match 'em all!`
+
+    modalContent.appendChild(createClose)
+    modalContent.appendChild(createPara)
+    modalDiv.appendChild(modalContent)
+    document.body.appendChild(modalDiv)
 
 }
 
@@ -219,13 +238,24 @@ const restartGame = () => {
 }
 
 const cards = document.getElementsByClassName("match")
+const closeVictoryModal = document.querySelector(".close")
+const victoryModal = document.querySelector(".victory");
+const victoryMessage = document.querySelector(".victory-message")
 
 const checkForWinCondition = function() {
     if(cards.length === 16) {
         setTimeout(function(){
-        alert (`You did it! You took ${turns} turns`)}, 500)
+        victoryMessage.innerText = `Congratulations! You took ${turns} turns to match 'em all!`;
+        victoryModal.style.display = "block";
+        }, 600)
     }
 }
+
+const closeVictoryWindow = function() {
+    victoryModal.style.display = "none";     
+}
+
+closeVictoryModal.addEventListener("click", closeVictoryWindow)
 
 // helper functions for eventListener
 const liftUp = function() {
@@ -240,5 +270,7 @@ const putDown = function() {
 restartPokeball.addEventListener("click", restartGame);
 
 /* DOM loaded event listener to arrange game assets on load */
-document.addEventListener("DOMContentLoaded", startGame);
-
+document.addEventListener("DOMContentLoaded", () =>{
+    // renderModal()
+    startGame();
+});
