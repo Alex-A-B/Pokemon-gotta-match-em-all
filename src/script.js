@@ -240,17 +240,21 @@ let testHighScore = [
     {name: "Mary", score: 11},
     {name: "Illidan", score: 18},
     {name: "Garrosh", score: 24},
-    {name: "Oak", score: 12}
+    {name: "Oak", score: 12},
+    {name: "Borat", score: 12},
+    {name: "Cedric", score: 17},
+    {name: "Hiker", score: 15}
 ]
 
-const highScores = document.querySelector(".highscores")
+// const highScores = document.querySelector(".highscores")
 const highScoreList = document.querySelector(".highscore-list")
 
 // a function that takes an array of highscores with name
-const highScoreLister = function(highscoreArray) { 
-    let newArray = highscoreArray.sort((a, b) => a.score - b.score)
-    console.log(newArray)
-    newArray.forEach( highscore => scoreLister(highscore));
+const scoreArrayMaker = function(highscoreArray) { 
+    // highscoreArray will be passed in by a fetch() GET from localhost server
+    let tempArray = highscoreArray.sort((a, b) => a.score - b.score)
+    let newArray = tempArray.slice(0, 10)
+    newArray.forEach(highscore => scoreLister(highscore));
 }
 
 const scoreLister = function(highscore){
@@ -260,7 +264,7 @@ const scoreLister = function(highscore){
     
 }
 
-highScoreLister(testHighScore);
+scoreArrayMaker(testHighScore);
 
 // helper function for modal event listeners
 
@@ -270,8 +274,9 @@ const closeVictoryWindow = function() {
 
 // modal eventListeners
 
+// on X
 closeVictoryModal.addEventListener("click", closeVictoryWindow)
-
+// on outside of modal content
 document.addEventListener("click", function(e){
     if (e.target === victoryModal) {
        closeVictoryWindow()
