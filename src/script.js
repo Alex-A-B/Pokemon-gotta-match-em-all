@@ -141,11 +141,9 @@ let turns = 0
 const cardflip = function() {
     if (this.dataset.face === "down") {
         this.dataset.face = "up"
-        // // setTimeout(function(){this.lastChild.style.display = "none"}, 500);
-        // this.lastChild.style.transform = "rotatey(180deg)";
-	    // this.lastChild.style.transitionDuration = "0.5s";
         this.lastChild.style.display = "none"
         this.firstChild.style.display = "block"
+        this.lastChild.style.display = "none"
         this.classList.toggle("disabled")
         cardBecomesActive(this)
     } 
@@ -206,10 +204,12 @@ const enableBoard = function() {
 
 // to move to top 
 const restartPokeball = document.querySelector(".restart")
+const modalRestartBall = document.querySelector(".restart-modal")
 
 // restart function
 const restartGame = () => {
     turns = 0;
+    victoryModal.style.display = "none";
     gameBoard.innerHTML = "";
     startGame();
 }
@@ -252,6 +252,9 @@ const liftUp = function() {
 const putDown = function() {
     this.style.transform = "";
 }
+
+/* EventListener for modal restart button           */
+modalRestartBall.addEventListener("click", restartGame);
 
 /* Event Listener to get functioning Restart button */
 restartPokeball.addEventListener("click", restartGame);
