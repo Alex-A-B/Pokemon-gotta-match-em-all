@@ -228,6 +228,40 @@ const checkForWinCondition = function() {
     }
 }
 
+// test HiScore array
+
+let testHighScore = [
+    {name: "Ralph", score: 12},
+    {name: "Ash", score: 9},
+    {name: "Sarah", score: 13},
+    {name: "Paul", score: 15},
+    {name: "Gary", score: 19},
+    {name: "Alice", score: 21},
+    {name: "Mary", score: 11},
+    {name: "Illidan", score: 18},
+    {name: "Garrosh", score: 24},
+    {name: "Oak", score: 12}
+]
+
+const highScores = document.querySelector(".highscores")
+const highScoreList = document.querySelector(".highscore-list")
+
+// a function that takes an array of highscores with name
+const highScoreLister = function(highscoreArray) { 
+    let newArray = highscoreArray.sort((a, b) => a.score - b.score)
+    console.log(newArray)
+    newArray.forEach( highscore => scoreLister(highscore));
+}
+
+const scoreLister = function(highscore){
+        const li = document.createElement("li")
+        li.innerText = `It took ${highscore.name} a mere ${highscore.score} turns to match 'em all!`;
+        highScoreList.appendChild(li);
+    
+}
+
+highScoreLister(testHighScore);
+
 // helper function for modal event listeners
 
 const closeVictoryWindow = function() {

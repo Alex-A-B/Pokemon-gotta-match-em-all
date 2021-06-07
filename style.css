@@ -1,6 +1,7 @@
 body {
     background-color: white;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-variant: small-caps;
     color: #092B54;
     
     display: flex;
