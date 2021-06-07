@@ -228,17 +228,27 @@ const checkForWinCondition = function() {
     }
 }
 
+// helper function for modal event listeners
+
 const closeVictoryWindow = function() {
     victoryModal.style.display = "none";     
 }
 
+// modal eventListeners
+
 closeVictoryModal.addEventListener("click", closeVictoryWindow)
 
-// helper functions for eventListener
+document.addEventListener("click", function(e){
+    if (e.target === victoryModal) {
+       closeVictoryWindow()
+    }
+})
+
+// helper functions for mouseover eventListener
 const liftUp = function() {
     this.style.transform = "translateY(-2px)";
 }
-// helper function for eventListener
+// helper function for mouseout eventListener
 const putDown = function() {
     this.style.transform = "";
 }
