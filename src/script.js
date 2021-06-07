@@ -128,29 +128,6 @@ const renderCards = function(pokedex) {
     gameBoard.appendChild(createCard)
 };
 
-// modal stuff
-const renderModal = function(){
-    const modalDiv = document.createElement("div")
-    modalDiv.className = "victory"
-
-    const modalContent = document.createElement("div")
-    modalContent.className = "modal-content"
-
-    const createClose = document.createElement("span")
-    createClose.className = "close"
-    createClose.innerText = "X"
-    createClose.addEventListener("click", closeVictoryWindow)
-
-    const createPara = document.createElement("p")
-    createPara.innerText = `Congratulations! You took ${turns} turns to match 'em all!`
-
-    modalContent.appendChild(createClose)
-    modalContent.appendChild(createPara)
-    modalDiv.appendChild(modalContent)
-    document.body.appendChild(modalDiv)
-
-}
-
 // turn counter
 let turns = 0
 
@@ -271,6 +248,5 @@ restartPokeball.addEventListener("click", restartGame);
 
 /* DOM loaded event listener to arrange game assets on load */
 document.addEventListener("DOMContentLoaded", () =>{
-    // renderModal()
     startGame();
 });
