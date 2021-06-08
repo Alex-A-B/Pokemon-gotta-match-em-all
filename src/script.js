@@ -104,12 +104,6 @@ const renderCards = function(pokedex) {
     cardHeader.innerText = `${pokedex.species.name}`                 
     createCardFront.appendChild(cardHeader)
 
-    /* not needed for MVP */
-    // const cardInfo = document.createElement("p")
-    // cardInfo.className = "card-info"
-    // cardInfo.innerText = "some interesting facts about the image"                
-    // createCardFront.appendChild(cardInfo)
-
     // card back
     const createCardBack = document.createElement("div")
     createCardBack.className = "card-back"
@@ -160,9 +154,17 @@ let activeCards = [];
 const cardBecomesActive = function(card) {
     activeCards.push(card);
     let length = activeCards.length;
-    // console.log(activeCards)
+    //test code
+    if (length === 1){
+        if(turns === 0){
+            startCounter();
+            startTimer();
+        }
+    }    
+    // end test code
     if (length === 2) {
         turns ++
+        turncount.innerText = turns;
         if(activeCards[0].firstChild.dataset.dexid === activeCards[1].firstChild.dataset.dexid) {
             disableBoard();
             activeCards[0].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
@@ -208,7 +210,13 @@ const modalRestartBall = document.querySelector(".restart-modal")
 
 // restart function
 const restartGame = () => {
+    clearInterval(clockTimer)
+    clearInterval(scoreCounter)
     turns = 0;
+    second = 0;
+    minute = 0;
+    hours = 0;
+    counter = 0;
     victoryModal.style.display = "none";
     gameBoard.innerHTML = "";
     startGame();
@@ -221,11 +229,57 @@ const victoryMessage = document.querySelector(".victory-message")
 
 const checkForWinCondition = function() {
     if(cards.length === 16) {
+        clearInterval(clockTimer)
+        clearInterval(scoreCounter)
+        let finalTime = gameTimer.innerHTML
+        let finalScore = scoreCount.innerHTML
         setTimeout(function(){
-        victoryMessage.innerText = `Congratulations! You took ${turns} turns to match 'em all!`;
+        victoryMessage.innerHTML = `Congratulations! You took <strong>${turns}</strong> turns to match 'em all!<br/>
+                                        It took you <strong>${finalTime}</strong><br/>
+                                        You earned ₽<strong>${finalScore}</strong>! ` ;
         victoryModal.style.display = "block";
         }, 600)
     }
+}
+
+// gameplay features section:
+/* display turns - innerText*/
+const turncount = document.querySelector(".turnCount")
+
+/* display counter */
+const gameTimer = document.querySelector(".gameTimer")
+let second = 0, minute = 0, hour = 0;
+let clockTimer;
+const startTimer = function(){
+    clockTimer = setInterval(function(){
+        gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
+        second++
+        if(second === 60){
+            minute++;
+            second = 0;
+        }
+        if(minute === 60){
+            hour++;
+            minute = 0;
+        }
+    }, 1000);
+}
+
+/* score maker*/
+const scoreCount = document.querySelector(".scoreCount")
+let counter = 0
+let pointsScored
+let scoreCounter
+const startCounter = function(){
+    scoreCounter = setInterval(function(){
+        pointsScored = 1000 - (turns * counter);
+        if (pointsScored < 0) {
+            scoreCount.innerHTML = `0`
+        }else{
+            scoreCount.innerHTML = `${pointsScored}`
+        };
+        counter++ ;
+    }, 1000);
 }
 
 // test HiScore array
@@ -249,7 +303,7 @@ let testHighScore = [
 // const highScores = document.querySelector(".highscores")
 const highScoreList = document.querySelector(".highscore-list")
 
-// a function that takes an array of highscores with name
+// a function that takes an array of highscores with name, turns and score
 const scoreArrayMaker = function(highscoreArray) { 
     // highscoreArray will be passed in by a fetch() GET from localhost server
     let tempArray = highscoreArray.sort((a, b) => a.score - b.score)
