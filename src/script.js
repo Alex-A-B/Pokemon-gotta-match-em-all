@@ -135,7 +135,6 @@ let turns = 0
 const cardflip = function() {
     if (this.dataset.face === "down") {
         this.dataset.face = "up"
-        this.lastChild.style.display = "none"
         this.firstChild.style.display = "block"
         this.lastChild.style.display = "none"
         this.classList.toggle("disabled")
@@ -217,6 +216,7 @@ const restartGame = () => {
     minute = 0;
     hours = 0;
     counter = 0;
+    gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
     victoryModal.style.display = "none";
     gameBoard.innerHTML = "";
     startGame();
