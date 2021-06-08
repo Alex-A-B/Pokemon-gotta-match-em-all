@@ -6,6 +6,7 @@ const BASEURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
 /* Converted to a function, and called by DOMLoaded eventListener    *
  * will be added to a restart/new game button. and play again        */
  const startGame = function() {
+    housekeeping();
     fetch(BASEURL)
     .then(response => response.json())
     // .then(pokedex => pokedex.results.forEach(pokemon => console.log(pokemon)))
@@ -153,14 +154,12 @@ let activeCards = [];
 const cardBecomesActive = function(card) {
     activeCards.push(card);
     let length = activeCards.length;
-    //test code
     if (length === 1){
         if(turns === 0){
             startCounter();
             startTimer();
         }
     }    
-    // end test code
     if (length === 2) {
         turns ++
         turncount.innerText = turns;
@@ -208,19 +207,28 @@ const restartPokeball = document.querySelector(".restart")
 const modalRestartBall = document.querySelector(".restart-modal")
 
 // restart function
-const restartGame = () => {
+// const restartGame = () => {
+//     housekeeping()
+//     victoryModal.style.display = "none";
+//     gameBoard.innerHTML = "";
+//     startGame();
+// }
+
+const housekeeping = function(){
     clearInterval(clockTimer)
     clearInterval(scoreCounter)
+    victoryModal.style.display = "none";
+    gameBoard.innerHTML = "";
     turns = 0;
     second = 0;
     minute = 0;
     hours = 0;
     counter = 0;
     gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
-    victoryModal.style.display = "none";
-    gameBoard.innerHTML = "";
-    startGame();
+    turncount.innerText = turns;
+    scoreCount.innerHTML = 0
 }
+
 
 const cards = document.getElementsByClassName("match")
 const closeVictoryModal = document.querySelector(".close")
@@ -347,10 +355,10 @@ const putDown = function() {
 }
 
 /* EventListener for modal restart button           */
-modalRestartBall.addEventListener("click", restartGame);
+modalRestartBall.addEventListener("click", housekeeping);
 
 /* Event Listener to get functioning Restart button */
-restartPokeball.addEventListener("click", restartGame);
+restartPokeball.addEventListener("click", housekeeping);
 
 /* DOM loaded event listener to arrange game assets on load */
 document.addEventListener("DOMContentLoaded", () =>{

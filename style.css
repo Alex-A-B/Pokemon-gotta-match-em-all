@@ -176,7 +176,8 @@ h2 {
     font-size: 2em;
     background-color: rgba(238, 197, 192, 0.5);
     padding-top: 1em;
-    padding-bottom: 2em;
+    padding-bottom: 1em;
+    padding-right: 1em;
     margin: 7em 0em 1em 0em;
 
     border: 1px solid rgb(25, 38, 83);
@@ -185,6 +186,7 @@ h2 {
 
 .gameplay-elements {
     list-style-type: none;
+    list-style-position: inside;
 }
 
 .highscores {
