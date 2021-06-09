@@ -19,7 +19,7 @@ It is a Single Page Application (SPA) which is built from HTML, CSS and JavaScri
 
 Main images and name data is captured dynamically from the public API - [pokeAPI](https://pokeapi.co) via a series of JavaScript `fetch() GET` commands.
 
-Utilises the **Fisher-Yates** or(**Knuth**) methodology to shuffle the playing deck, which, along with the random generation of the Pokemon in the deck to begin with, can lead to some less than random looking game boards. I made a blog post about it, you can find it here [NEED TO ADD LINK](medium.com)
+Utilises the **Fisher-Yates** or (**Knuth**) methodology to shuffle the playing deck, which, along with the random generation of the Pokemon in the deck to begin with, can lead to some less than random looking game boards. I made a blog post about it, you can find it here [NEED TO ADD LINK](medium.com)
 
 Cards are dynamically created with vanilla JavaScript to alter the DOM. This also sets different CSS properties to apply suitably glitzy graphics.
 

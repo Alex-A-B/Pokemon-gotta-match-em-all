@@ -165,13 +165,16 @@ const cardBecomesActive = function(card) {
         turncount.innerText = turns;
         if(activeCards[0].firstChild.dataset.dexid === activeCards[1].firstChild.dataset.dexid) {
             disableBoard();
-            activeCards[0].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
-            activeCards[1].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
-            activeCards[0].classList.toggle("match")
-            activeCards[1].classList.toggle("match")
+            activeCards.forEach(card => card.style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))")
+            activeCards.forEach(card => card.classList.toggle("match"))
+            // activeCards[0].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
+            // activeCards[1].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
+            // activeCards[0].classList.toggle("match")
+            // activeCards[1].classList.toggle("match")
             setTimeout(function(){
-                activeCards[0].style.backgroundImage = "";
-                activeCards[1].style.backgroundImage = "";
+                activeCards.forEach(card => card.style.backgroundImage = "")
+                // activeCards[0].style.backgroundImage = "";
+                // activeCards[1].style.backgroundImage = "";
                 activeCards = [];
                 enableBoard();
             }, 1200)            
@@ -207,23 +210,22 @@ const restartPokeball = document.querySelector(".restart")
 const modalRestartBall = document.querySelector(".restart-modal")
 
 // restart function
-// const restartGame = () => {
-//     housekeeping()
-//     victoryModal.style.display = "none";
-//     gameBoard.innerHTML = "";
-//     startGame();
-// }
+const restartGame = () => {
+    housekeeping()
+    gameBoard.innerHTML = "";
+    startGame();
+}
 
 const housekeeping = function(){
     clearInterval(clockTimer)
     clearInterval(scoreCounter)
     victoryModal.style.display = "none";
-    gameBoard.innerHTML = "";
-    turns = 0;
-    second = 0;
-    minute = 0;
-    hours = 0;
-    counter = 0;
+    turns, second, minute, hours, counter = 0
+    // turns = 0;
+    // second = 0;
+    // minute = 0;
+    // hours = 0;
+    // counter = 0;
     gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
     turncount.innerText = turns;
     scoreCount.innerHTML = 0
@@ -243,7 +245,7 @@ const checkForWinCondition = function() {
         let finalScore = scoreCount.innerHTML
         setTimeout(function(){
         victoryMessage.innerHTML = `Congratulations! You took <strong>${turns}</strong> turns to match 'em all!<br/>
-                                        It took you <strong>${finalTime}</strong><br/>
+                                        It took you <strong>${finalTime}</strong>.<br/>
                                         You earned ₽<strong>${finalScore}</strong>! ` ;
         victoryModal.style.display = "block";
         }, 600)
@@ -355,10 +357,10 @@ const putDown = function() {
 }
 
 /* EventListener for modal restart button           */
-modalRestartBall.addEventListener("click", housekeeping);
+modalRestartBall.addEventListener("click", restartGame);
 
 /* Event Listener to get functioning Restart button */
-restartPokeball.addEventListener("click", housekeeping);
+restartPokeball.addEventListener("click", restartGame);
 
 /* DOM loaded event listener to arrange game assets on load */
 document.addEventListener("DOMContentLoaded", () =>{
