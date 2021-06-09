@@ -208,7 +208,6 @@ const modalRestartBall = document.querySelector(".restart-modal")
 
 // restart function
 const restartGame = () => {
-    housekeeping()
     gameBoard.innerHTML = "";
     startGame();
 }
@@ -318,6 +317,7 @@ const hsName = document.querySelector(".highscore-name")
 const hsSubmit = document.querySelector(".highscore-submit")
 
 const userSubmitHighScore = function(){
+    closeVictoryWindow();
     fetch(HIGHSCOREURL, {
         method: "POST",
         headers: {
@@ -334,6 +334,7 @@ const userSubmitHighScore = function(){
 }
 // get high scores from server
 const getHighScores = function(){
+    highScoreList.innerHTML = "";
     fetch(HIGHSCOREURL)
     .then(response => response.json())
     .then(highscores => scoreArrayMaker(highscores))

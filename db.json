@@ -23,6 +23,24 @@
       "turns": 14,
       "score": 610,
       "id": 4
+    },
+    {
+      "name": "Giovanni",
+      "turns": 17,
+      "score": 296,
+      "id": 5
+    },
+    {
+      "name": "Oak",
+      "turns": 12,
+      "score": 703,
+      "id": 6
+    },
+    {
+      "name": "Willow",
+      "turns": 13,
+      "score": 628,
+      "id": 7
     }
   ]
 }
