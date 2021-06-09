@@ -1,5 +1,28 @@
 {
   "highscores": [
-    
+    {
+      "name": "Cam",
+      "turns": 13,
+      "score": 640,
+      "id": 1
+    },
+    {
+      "name": "Jessie",
+      "turns": 15,
+      "score": 510,
+      "id": 2
+    },
+    {
+      "name": "James",
+      "turns": 13,
+      "score": 640,
+      "id": 3
+    },
+    {
+      "name": "Meowth",
+      "turns": 14,
+      "score": 610,
+      "id": 4
+    }
   ]
 }

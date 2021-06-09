@@ -216,7 +216,8 @@ h2 {
     padding: 1em 2em;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: none;
+    cursor: pointer;
 }
 
 .highscore-name {

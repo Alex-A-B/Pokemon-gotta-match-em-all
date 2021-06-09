@@ -25,15 +25,15 @@ Cards are dynamically created with vanilla JavaScript to alter the DOM. This als
 
 A Pop-Up Modal is present and gives useful stats for how well you did and whether you made it to the top 10.
 
-JavaScript `eventListeners` do a lot of the game features (which is the project requirement) however `setTimeout` also appears frequently to give a better gaming experience.
+JavaScript `eventListeners` control a lot of the game features (which is the project requirement) however `setTimeout` also appears frequently to give a better game experience.
 
-Localhost db.json server coded to track high scores and return a top 10 of them, you can fire it up in bash
+Localhost db.json server (http://localhost:3000/highscores) coded to track high scores and return a top 10 of them, you can fire it up in bash with: 
 
 ```bash
-    need to add which port its on
+    json-server --watch db.json
 ```
 
-## Roadmap
+## Possible New Features
 
 To do 
 - a delete high scores button!

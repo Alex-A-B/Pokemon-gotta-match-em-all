@@ -226,6 +226,7 @@ const housekeeping = function(){
     gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
     turncount.innerText = turns;
     scoreCount.innerHTML = 0
+    getHighScores()
 }
 
 
@@ -292,43 +293,25 @@ const startCounter = function(){
     }, 1000);
 }
 
-// test HiScore array
-
-let testHighScore = [
-    {name: "Ralph", score: 12},
-    {name: "Ash", score: 9},
-    {name: "Sarah", score: 13},
-    {name: "Paul", score: 15},
-    {name: "Gary", score: 19},
-    {name: "Alice", score: 21},
-    {name: "Mary", score: 11},
-    {name: "Illidan", score: 18},
-    {name: "Garrosh", score: 24},
-    {name: "Oak", score: 12},
-    {name: "Borat", score: 12},
-    {name: "Cedric", score: 17},
-    {name: "Hiker", score: 15}
-]
-
 // const highScores = document.querySelector(".highscores")
 const highScoreList = document.querySelector(".highscore-list")
 
 // a function that takes an array of highscores with name, turns and score
 const scoreArrayMaker = function(highscoreArray) { 
     // highscoreArray will be passed in by a fetch() GET from localhost server
-    let tempArray = highscoreArray.sort((a, b) => a.score - b.score)
+    let tempArray = highscoreArray.sort((a, b) => b.score - a.score)
     let newArray = tempArray.slice(0, 10)
     newArray.forEach(highscore => scoreLister(highscore));
 }
 
 const scoreLister = function(highscore){
         const li = document.createElement("li")
-        li.innerText = `It took ${highscore.name} a mere ${highscore.score} turns to match 'em all!`;
+        li.innerText = `${highscore.name} earned ₽${highscore.score} and took a mere ${highscore.turns} turns to match 'em all!`;
         highScoreList.appendChild(li);
     
 }
 
-scoreArrayMaker(testHighScore);
+
 // post to db.JSON
 const HIGHSCOREURL = "http://localhost:3000/highscores/"
 const hsName = document.querySelector(".highscore-name")
@@ -344,17 +327,22 @@ const userSubmitHighScore = function(){
         body: JSON.stringify({
             "name": hsName.value,
             "turns": turns,
-            "score": finalScore,
+            "score": parseInt(finalScore, 10),
         })
     })
     .catch(error => console.log(error.message))
+}
+// get high scores from server
+const getHighScores = function(){
+    fetch(HIGHSCOREURL)
+    .then(response => response.json())
+    .then(highscores => scoreArrayMaker(highscores))
 }
 
 hsSubmit.addEventListener("click", function(event){
     event.preventDefault();
     userSubmitHighScore();
-    victoryModal.style.display = "none";
-    // GET request for high score table required
+    restartGame()
 })
 
 // helper function for modal event listeners
