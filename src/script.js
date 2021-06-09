@@ -34,9 +34,11 @@ const setPokemonArray = function(pokedexArray) {
 }
 
 /* get random number function for the gameBoard cards */
-let randomPokemonId = function() {
-    return Math.floor(Math.random() * 151)
-}
+// let randomPokemonId = function() {
+//     return Math.floor(Math.random() * 151)
+// }
+let randomPokemonId = () => Math.floor(Math.random() * 151)
+
 
 /* hindsight and play tests have shown that relying on latency isn't optimal
  * A shuffle is required - JS has no native shuffle of an array.    *
@@ -94,29 +96,24 @@ const renderCards = function(pokedex) {
     createCardFront.className = "card-front"
     createCardFront.dataset.dexid = pokedex.id
     createCardFront.style.display = "none"
-    // front elements - name, image, info panel
-
+    // front elements - name, image
     const cardImage = document.createElement("img")
     cardImage.className = "card-image"
     cardImage.src = pokedex.sprites.other[`official-artwork`].front_default        
     createCardFront.appendChild(cardImage)
-
     const cardHeader = document.createElement("h2")
     cardHeader.innerText = `${pokedex.species.name}`                 
     createCardFront.appendChild(cardHeader)
-
     // card back
     const createCardBack = document.createElement("div")
     createCardBack.className = "card-back"
     createCardBack.style.display = "block"
     createCardBack.addEventListener("mouseover", liftUp)
     createCardBack.addEventListener("mouseout", putDown)
-
     const cardBackImg = document.createElement("img")
     cardBackImg.className = "card-back"
     cardBackImg.src = "assets/cardBack.png"
     createCardBack.appendChild(cardBackImg)
-
     // put it together
     createCard.appendChild(createCardFront);
     createCard.appendChild(createCardBack);
@@ -219,13 +216,13 @@ const restartGame = () => {
 const housekeeping = function(){
     clearInterval(clockTimer)
     clearInterval(scoreCounter)
-    victoryModal.style.display = "none";
-    turns, second, minute, hours, counter = 0
-    // turns = 0;
-    // second = 0;
-    // minute = 0;
-    // hours = 0;
-    // counter = 0;
+    victoryModal.style.display = "none";         /* turned off as resets on refresh while styling */
+    // turns, second, minute, hour, counter = 0
+    turns = 0;
+    second = 0;
+    minute = 0;
+    hour = 0;
+    counter = 0;
     gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
     turncount.innerText = turns;
     scoreCount.innerHTML = 0
@@ -236,13 +233,16 @@ const cards = document.getElementsByClassName("match")
 const closeVictoryModal = document.querySelector(".close")
 const victoryModal = document.querySelector(".victory");
 const victoryMessage = document.querySelector(".victory-message")
+let finalScore = 0
+let finalTime = 0
+
 
 const checkForWinCondition = function() {
     if(cards.length === 16) {
         clearInterval(clockTimer)
         clearInterval(scoreCounter)
-        let finalTime = gameTimer.innerHTML
-        let finalScore = scoreCount.innerHTML
+        finalTime = gameTimer.innerHTML
+        finalScore = scoreCount.innerHTML
         setTimeout(function(){
         victoryMessage.innerHTML = `Congratulations! You took <strong>${turns}</strong> turns to match 'em all!<br/>
                                         It took you <strong>${finalTime}</strong>.<br/>
@@ -329,15 +329,39 @@ const scoreLister = function(highscore){
 }
 
 scoreArrayMaker(testHighScore);
+// post to db.JSON
+const HIGHSCOREURL = "http://localhost:3000/highscores/"
+const hsName = document.querySelector(".highscore-name")
+const hsSubmit = document.querySelector(".highscore-submit")
+
+const userSubmitHighScore = function(){
+    fetch(HIGHSCOREURL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            "name": hsName.value,
+            "turns": turns,
+            "score": finalScore,
+        })
+    })
+    .catch(error => console.log(error.message))
+}
+
+hsSubmit.addEventListener("click", function(event){
+    event.preventDefault();
+    userSubmitHighScore();
+    victoryModal.style.display = "none";
+    // GET request for high score table required
+})
 
 // helper function for modal event listeners
-
 const closeVictoryWindow = function() {
     victoryModal.style.display = "none";     
 }
-
 // modal eventListeners
-
 // on X
 closeVictoryModal.addEventListener("click", closeVictoryWindow)
 // on outside of modal content
@@ -363,6 +387,4 @@ modalRestartBall.addEventListener("click", restartGame);
 restartPokeball.addEventListener("click", restartGame);
 
 /* DOM loaded event listener to arrange game assets on load */
-document.addEventListener("DOMContentLoaded", () =>{
-    startGame();
-});
+document.addEventListener("DOMContentLoaded", startGame);

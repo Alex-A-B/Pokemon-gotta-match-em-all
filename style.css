@@ -119,29 +119,28 @@ h2 {
 
 .victory {
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    position: fixed; 
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(25,38,83,0.7); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(25,38,83,0.7); 
   }
-  /* Modal Content/Box */
+  
 .victory-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto; 
     padding: 20px 20px 200px 20px;
     font-variant: small-caps;
     font-size: 1.5rem;
     text-align: center;
     border: 1px solid #888;
     border-radius: 0.5em;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%; 
   }
   
-  /* The Close Button */
   .close {
     color: #aaa;
     float: right;
@@ -220,6 +219,27 @@ h2 {
     display: inline-block;
 }
 
+.highscore-name {
+    width: 20em;
+    height: 3em;
+    color:rgb(25, 38, 83);
+    background-color: whitesmoke;
+    border: 1px solid rgb(25, 38, 83);
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+}
+
+.highscore-submit {
+    background-color: rgb(25, 38, 83);
+    border: none;
+    border-radius: 0.5em;
+    color: whitesmoke;
+    padding: 1em 2em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
 
 .disabled {
     pointer-events: none !important;
