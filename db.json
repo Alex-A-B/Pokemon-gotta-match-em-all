@@ -1,46 +1,22 @@
 {
   "highscores": [
     {
-      "name": "Cam",
-      "turns": 13,
-      "score": 640,
-      "id": 1
-    },
-    {
-      "name": "Jessie",
-      "turns": 15,
-      "score": 510,
+      "name": "James",
+      "goes": 12,
+      "score": 714,
       "id": 2
     },
     {
-      "name": "James",
-      "turns": 13,
-      "score": 640,
+      "name": "Ash",
+      "goes": 9,
+      "score": 864,
       "id": 3
     },
     {
-      "name": "Meowth",
-      "turns": 14,
-      "score": 610,
-      "id": 4
-    },
-    {
-      "name": "Giovanni",
-      "turns": 17,
-      "score": 296,
-      "id": 5
-    },
-    {
       "name": "Oak",
-      "turns": 12,
-      "score": 703,
-      "id": 6
-    },
-    {
-      "name": "Willow",
-      "turns": 13,
-      "score": 628,
-      "id": 7
+      "goes": 10,
+      "score": 802,
+      "id": 4
     }
   ]
 }

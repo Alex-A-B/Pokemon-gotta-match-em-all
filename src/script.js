@@ -292,24 +292,29 @@ const startCounter = function(){
     }, 1000);
 }
 
+/* ************************************************************ */
+/* To get High Scores to work run "json-server --watch db.json" */
+/* ************************************************************ */
+
 // const highScores = document.querySelector(".highscores")
 const highScoreList = document.querySelector(".highscore-list")
+// high score Array
+let highScores = [];
 
 // a function that takes an array of highscores with name, turns and score
 const scoreArrayMaker = function(highscoreArray) { 
-    // highscoreArray will be passed in by a fetch() GET from localhost server
+    highScoreList.innerHTML = "";
     let tempArray = highscoreArray.sort((a, b) => b.score - a.score)
-    let newArray = tempArray.slice(0, 10)
-    newArray.forEach(highscore => scoreLister(highscore));
+    highScores = tempArray.slice(0, 10)
+    highScores.forEach(highscore => scoreLister(highscore));
 }
 
 const scoreLister = function(highscore){
         const li = document.createElement("li")
-        li.innerText = `${highscore.name} earned ₽${highscore.score} and took a mere ${highscore.turns} turns to match 'em all!`;
+        li.innerText = `${highscore.name} earned ₽${highscore.score} and took a mere ${highscore.goes} turns to match 'em all!`;
         highScoreList.appendChild(li);
     
 }
-
 
 // post to db.JSON
 const HIGHSCOREURL = "http://localhost:3000/highscores/"
@@ -317,6 +322,7 @@ const hsName = document.querySelector(".highscore-name")
 const hsSubmit = document.querySelector(".highscore-submit")
 
 const userSubmitHighScore = function(){
+    highScores.push({name: hsName.value, goes: turns, score: parseInt(finalScore, 10)})
     closeVictoryWindow();
     fetch(HIGHSCOREURL, {
         method: "POST",
@@ -326,7 +332,7 @@ const userSubmitHighScore = function(){
         },
         body: JSON.stringify({
             "name": hsName.value,
-            "turns": turns,
+            "goes": turns,
             "score": parseInt(finalScore, 10),
         })
     })
@@ -334,7 +340,6 @@ const userSubmitHighScore = function(){
 }
 // get high scores from server
 const getHighScores = function(){
-    highScoreList.innerHTML = "";
     fetch(HIGHSCOREURL)
     .then(response => response.json())
     .then(highscores => scoreArrayMaker(highscores))
@@ -343,7 +348,8 @@ const getHighScores = function(){
 hsSubmit.addEventListener("click", function(event){
     event.preventDefault();
     userSubmitHighScore();
-    restartGame()
+    scoreArrayMaker(highScores);
+    closeVictoryWindow();
 })
 
 // helper function for modal event listeners
