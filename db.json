@@ -17,6 +17,42 @@
       "goes": 10,
       "score": 802,
       "id": 4
+    },
+    {
+      "name": "Brock",
+      "goes": 11,
+      "score": 790,
+      "id": 5
+    },
+    {
+      "name": "Giovanni",
+      "goes": 10,
+      "score": 811,
+      "id": 6
+    },
+    {
+      "name": "Meowth",
+      "goes": 13,
+      "score": 640,
+      "id": 7
+    },
+    {
+      "name": "Blaine",
+      "goes": 12,
+      "score": 692,
+      "id": 8
+    },
+    {
+      "name": "Gary",
+      "goes": 11,
+      "score": 750,
+      "id": 9
+    },
+    {
+      "name": "Misty",
+      "goes": 10,
+      "score": 784,
+      "id": 10
     }
   ]
 }

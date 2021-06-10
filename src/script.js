@@ -318,12 +318,11 @@ const scoreLister = function(highscore){
 
 // post to db.JSON
 const HIGHSCOREURL = "http://localhost:3000/highscores/"
-const hsName = document.querySelector(".highscore-name")
-const hsSubmit = document.querySelector(".highscore-submit")
+const hsName = document.querySelector(".submit-highscore-form input[name='name']")
+const hsSubmit = document.querySelector(".submit-highscore-form")
 
 const userSubmitHighScore = function(){
     highScores.push({name: hsName.value, goes: turns, score: parseInt(finalScore, 10)})
-    closeVictoryWindow();
     fetch(HIGHSCOREURL, {
         method: "POST",
         headers: {
@@ -345,11 +344,12 @@ const getHighScores = function(){
     .then(highscores => scoreArrayMaker(highscores))
 }
 
-hsSubmit.addEventListener("click", function(event){
+hsSubmit.addEventListener("submit", function(event){
     event.preventDefault();
     userSubmitHighScore();
     scoreArrayMaker(highScores);
     closeVictoryWindow();
+    event.target.reset();
 })
 
 // helper function for modal event listeners

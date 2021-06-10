@@ -21,23 +21,28 @@ Main images and name data is captured dynamically from the public API - [pokeAPI
 
 Utilises the **Fisher-Yates** or (**Knuth**) methodology to shuffle the playing deck, which, along with the random generation of the Pokemon in the deck to begin with, can lead to some less than random looking game boards. I made a blog post about it, you can find it here [NEED TO ADD LINK](medium.com)
 
-Cards are dynamically created with vanilla JavaScript to alter the DOM. This also sets different CSS properties to apply suitably glitzy graphics.
+Cards are dynamically created with vanilla 🍦 JavaScript to alter the DOM. This also sets different CSS properties to apply suitably lo-fi graphics.
 
 A Pop-Up Modal is present and gives useful stats for how well you did and whether you made it to the top 10.
 
 JavaScript `eventListeners` control a lot of the game features (which is the project requirement) however `setTimeout` also appears frequently to give a better game experience.
 
-Localhost db.json server (http://localhost:3000/highscores) coded to track high scores and return a top 10 of them, you can fire it up in bash with: 
+GameStats - Turns, Time taken and Score (Money for theming purposes) update in real time on the DOM, these rely on `setTimeout` functions. The astute among you will notice there is both a Timer and a Counter - the Timer records Time, while the Counter records a Value which is used in score generation 
+
+Localhost db.json server (http://localhost:3000/highscores) coded to track high scores and return a top 10 of them, you can fire it up in the terminal with: 
 
 ```bash
     json-server --watch db.json
 ```
 
+
+
 ## Possible New Features
 
-To do 
+On the To-do list
 - a delete high scores button!
 - potentially a comments section
+- different viewport size support as only supported on fullscreen at present.
 - a video feature review (coming soon, it's part of the project requirements!)
 - some form of like system would be neat, not sure how to implement it though. 
 
