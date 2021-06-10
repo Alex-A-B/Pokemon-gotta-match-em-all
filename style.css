@@ -216,7 +216,7 @@ h2 {
     padding: 1em 2em;
     text-align: center;
     text-decoration: none;
-    display: none;
+    display: inline-block;
     cursor: pointer;
 }
 

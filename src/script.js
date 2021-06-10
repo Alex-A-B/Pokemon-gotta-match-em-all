@@ -345,12 +345,31 @@ const getHighScores = function(){
 }
 
 hsSubmit.addEventListener("submit", function(event){
-    event.preventDefault();
-    userSubmitHighScore();
-    scoreArrayMaker(highScores);
-    closeVictoryWindow();
-    event.target.reset();
+    event.preventDefault();         // don't refresh the page
+    userSubmitHighScore();          // POST to db.json
+    scoreArrayMaker(highScores);    // run the highscore table
+    closeVictoryWindow();           // close the modal
+    event.target.reset();           // reset the highscore form
+    // no restart game as you may want to see how it ended and I wouldn't expect a submit highscore form to also restart my game.
 })
+
+
+// reset highscores 
+// get high scores, jsonify, for loop through delete function...
+// inefficiently effective.
+const resetHighscores = () => {
+    highScoreList.innerHTML = "";
+    highScores = [];
+    fetch(HIGHSCOREURL)
+    .then(response => response.json())
+    .then(scores => scores.forEach(score => fetch(`http://localhost:3000/highscores/${score.id}`, {method: "DELETE"})))
+}
+
+const hsResetBtn = document.querySelector(".reset-scores")
+
+hsResetBtn.addEventListener("click", resetHighscores)
+
+
 
 // helper function for modal event listeners
 const closeVictoryWindow = function() {
