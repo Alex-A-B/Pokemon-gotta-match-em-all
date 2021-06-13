@@ -81,4 +81,6 @@ On the To-do list
 - 🧰 different viewport size support as only supported on fullscreen at present.
 - 🧰 a video feature review (coming soon, it's part of the project requirements!)
 - 🧰 some form of like system would be neat, not sure how to implement it though. 
+- 🧰 light/dark modes
+
 

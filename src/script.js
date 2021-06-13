@@ -216,12 +216,12 @@ const housekeeping = function(){
     clearInterval(clockTimer)
     clearInterval(scoreCounter)
     victoryModal.style.display = "none";         /* turned off as resets on refresh while styling */
-    // turns, second, minute, hour, counter = 0
-    turns = 0;
-    second = 0;
-    minute = 0;
-    hour = 0;
-    counter = 0;
+    turns = 0, second = 0, minute = 0, hour = 0, counter = 0
+    // turns = 0;
+    // second = 0;
+    // minute = 0;
+    // hour = 0;
+    // counter = 0;
     gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
     turncount.innerText = turns;
     scoreCount.innerHTML = 0
@@ -368,8 +368,6 @@ const resetHighscores = () => {
 const hsResetBtn = document.querySelector(".reset-scores")
 
 hsResetBtn.addEventListener("click", resetHighscores)
-
-
 
 // helper function for modal event listeners
 const closeVictoryWindow = function() {
