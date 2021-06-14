@@ -17,6 +17,10 @@ Gotta match 'em all is a Pokemon memory game based on the first 151 Pokemon!
 
 - Try for a place on the High Score Table! (or just delete the scores so you can be the very best!)
 
+- **You can watch my demo and feature overview [here](https://youtu.be/XahAjWituPo)!**
+
+![gameboard](./assets/gameboardsmaller.png "The Game Board") 
+
 ---
 
 
@@ -70,17 +74,16 @@ Utilised User story driven method to build out features. My principle stories we
 6. _As a user I would like to see how I compare to others._
     * A high score table has been created, this is hosted on a localhost:3000 server.
 
-These were the key stories I worked my way through, but within each sub-section of these broad stories, I looked to use the User story method to help hone what I was trying to build in the application. This ranged from _as a User I would expect this to look like ..._ to something more granular like _as a user I expect my score to update when I submit it_. This method allowed me to work through challenging problems while keeping the brief in mind, and focusing the code being written.  
+These were the key stories I worked my way through, but within each sub-section of these broad stories, I looked to use the User story method to help hone what I was trying to build in the application. This ranged from _as a User I would expect this to look like ..._ to something more granular like _as a user I expect my score to update when I submit it_. This method allowed me to work through challenging problems while keeping both the brief in mind, and focusing the code being written.  
 
 ---
 ## 🛠️ Possible New Features 🛠️
 
 On the To-do list
-- 🧰 a delete high scores button!
+- 🧰 ~~a delete high scores button!~~
 - 🧰 potentially a comments section
 - 🧰 different viewport size support as only supported on fullscreen at present.
-- 🧰 a video feature review (coming soon, it's part of the project requirements!)
-- 🧰 some form of like system would be neat, not sure how to implement it though. 
+- 🧰 some form of like system would be neat, showing off favourite cards. 
 - 🧰 light/dark modes
 
 

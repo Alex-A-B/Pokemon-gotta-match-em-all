@@ -34,11 +34,7 @@ const setPokemonArray = function(pokedexArray) {
 }
 
 /* get random number function for the gameBoard cards */
-// let randomPokemonId = function() {
-//     return Math.floor(Math.random() * 151)
-// }
 let randomPokemonId = () => Math.floor(Math.random() * 151)
-
 
 /* hindsight and play tests have shown that relying on latency isn't optimal
  * A shuffle is required - JS has no native shuffle of an array.    *
@@ -151,11 +147,11 @@ let activeCards = [];
 const cardBecomesActive = function(card) {
     activeCards.push(card);
     let length = activeCards.length;
-    if (length === 1){
-        if(turns === 0){
+    if (length === 1 && turns === 0){
+        // if(turns === 0){
             startCounter();
             startTimer();
-        }
+        // }
     }    
     if (length === 2) {
         turns ++
@@ -215,14 +211,14 @@ const restartGame = () => {
 const housekeeping = function(){
     clearInterval(clockTimer)
     clearInterval(scoreCounter)
-    victoryModal.style.display = "none";         /* turned off as resets on refresh while styling */
+    closeVictoryWindow();         /* turned off as resets on refresh while styling */
     turns = 0, second = 0, minute = 0, hour = 0, counter = 0
     // turns = 0;
     // second = 0;
     // minute = 0;
     // hour = 0;
     // counter = 0;
-    gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
+    displayTimer()
     turncount.innerText = turns;
     scoreCount.innerHTML = 0
     getHighScores()
@@ -256,13 +252,14 @@ const checkForWinCondition = function() {
 /* display turns - innerText*/
 const turncount = document.querySelector(".turnCount")
 
-/* display counter */
+/* display Game Timer */
 const gameTimer = document.querySelector(".gameTimer")
 let second = 0, minute = 0, hour = 0;
+const displayTimer = () => gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
 let clockTimer;
 const startTimer = function(){
     clockTimer = setInterval(function(){
-        gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
+        displayTimer()
         second++
         if(second === 60){
             minute++;
@@ -282,13 +279,13 @@ let pointsScored
 let scoreCounter
 const startCounter = function(){
     scoreCounter = setInterval(function(){
+        counter++ ;
         pointsScored = 1000 - (turns * counter);
         if (pointsScored < 0) {
             scoreCount.innerHTML = `0`
-        }else{
+        } else {
             scoreCount.innerHTML = `${pointsScored}`
-        };
-        counter++ ;
+        }
     }, 1000);
 }
 
@@ -353,10 +350,7 @@ hsSubmit.addEventListener("submit", function(event){
     // no restart game as you may want to see how it ended and I wouldn't expect a submit highscore form to also restart my game.
 })
 
-
 // reset highscores 
-// get high scores, jsonify, for loop through delete function...
-// inefficiently effective.
 const resetHighscores = () => {
     highScoreList.innerHTML = "";
     highScores = [];
@@ -370,9 +364,8 @@ const hsResetBtn = document.querySelector(".reset-scores")
 hsResetBtn.addEventListener("click", resetHighscores)
 
 // helper function for modal event listeners
-const closeVictoryWindow = function() {
-    victoryModal.style.display = "none";     
-}
+const closeVictoryWindow = () => victoryModal.style.display = "none"   
+
 // modal eventListeners
 // on X
 closeVictoryModal.addEventListener("click", closeVictoryWindow)
