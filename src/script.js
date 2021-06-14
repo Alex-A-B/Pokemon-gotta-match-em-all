@@ -3,8 +3,7 @@
 /*  variable to have the Base URL for the fetch - prevent typos!     */
 const BASEURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
 
-/* Converted to a function, and called by DOMLoaded eventListener    *
- * will be added to a restart/new game button. and play again        */
+// Start of Game - housekeeping function to tidy game state, GET initial pokemon for the gameboard.
  const startGame = function() {
     housekeeping();
     fetch(BASEURL)
@@ -13,10 +12,7 @@ const BASEURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
     .then(pokedex => setPokemonArray(pokedex))
 }
 
-/*  function to set board size which is #pairs of chars to match     *
- *  Poss Features:                                                   *
- *  Will be looking to set some repeat protection via if in the      *
- *  loop. Seek to increase the board size for #pairs via toggle      */
+// Set Gameboard size and array
 const setPokemonArray = function(pokedexArray) {
     const pokemonArray = [];
     for (let i = 0; i < 8; i++) {
@@ -25,23 +21,16 @@ const setPokemonArray = function(pokedexArray) {
         pokemonArray.push(pokemon)
     }
     const gameArray = [...pokemonArray, ...pokemonArray]  
-    // debugging code
-    // console.log("initial arrays")
-    // console.log(pokemonArray)
-    // console.log(gameArray)
-    // debugger
     fillGameBoard(gameArray)
 }
 
 /* get random number function for the gameBoard cards */
 let randomPokemonId = () => Math.floor(Math.random() * 151)
 
-/* hindsight and play tests have shown that relying on latency isn't optimal
- * A shuffle is required - JS has no native shuffle of an array.    *
+/* A shuffle is required - JS has no native shuffle of an array.    *
  * the most popular method is the Fisher-Yates (or Knuth) Shuffle   */
 const shuffleGame = function(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
-
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
@@ -49,23 +38,15 @@ const shuffleGame = function(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-    // debugging code 
-    // console.log("shuffled big array (used debugger to capture)")
-    // console.log(array)
-    // debugger
     return array;
 };
 
-let gameDeck = [];
-
-/* function to take the game array and  */
+// function shuffles game board before passing to second GET
 const fillGameBoard = function(gameArray) {
-    gameDeck = shuffleGame(shuffleGame(gameArray));
-    // console.log(gameDeck)
+    let gameDeck = shuffleGame(shuffleGame(gameArray));
     gameDeck.forEach(pokemon => fillPokedex(pokemon))
 }
-/* function to create the cards based on initial fetch info, which   *
- * is then worked to create the gameBoard with the cards in play.    */
+// takes shuffled array, GET specific images from the URL
 const fillPokedex = (pokemon) => {
     let pokeURL = pokemon.url
     fetch(pokeURL)    
@@ -77,9 +58,7 @@ const fillPokedex = (pokemon) => {
 /*  variable to quickly select the gameBoard div in the DOM          */ 
 const gameBoard = document.querySelector(".gameBoard");
 
-/* card render function - builds the cards for the game. Scaled back *
- * for MVP, name, image and ID taken from API to display and match.  */
-// render cards
+// render cards function
 const renderCards = function(pokedex) {
     // card
     const createCard = document.createElement("div")
@@ -119,13 +98,7 @@ const renderCards = function(pokedex) {
 // turn counter
 let turns = 0
 
-// const cardFront = document.querySelector(".card-front")
-// const cardBack = document.querySelector(".card-back")
-
-
-// cardflip function - checks dataset-face value if data-face = DOWN, 
-// then 'flip' card displays by displaying front, hiding back.
-// passes to new function cardBecomesActive
+// cardflip function 
 const cardflip = function() {
     if (this.dataset.face === "down") {
         this.dataset.face = "up"
@@ -139,19 +112,13 @@ const cardflip = function() {
 // array for active cards
 let activeCards = []; 
 
-// active card function - push the card to activeCards array.
-// checks array length, if length == 2 then checks for match, else carry on.
-// if matched cards remain in face UP state, empties activeCard Array
-// if not matched setTimeout function resets the card states, by calling cardReset
-// for each card in array, then empties activeCard array
+// active card function
 const cardBecomesActive = function(card) {
     activeCards.push(card);
     let length = activeCards.length;
     if (length === 1 && turns === 0){
-        // if(turns === 0){
             startCounter();
             startTimer();
-        // }
     }    
     if (length === 2) {
         turns ++
@@ -160,14 +127,8 @@ const cardBecomesActive = function(card) {
             disableBoard();
             activeCards.forEach(card => card.style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))")
             activeCards.forEach(card => card.classList.toggle("match"))
-            // activeCards[0].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
-            // activeCards[1].style.backgroundImage = "radial-gradient(rgb(241, 241, 216), rgb(241, 245, 35))";
-            // activeCards[0].classList.toggle("match")
-            // activeCards[1].classList.toggle("match")
             setTimeout(function(){
                 activeCards.forEach(card => card.style.backgroundImage = "")
-                // activeCards[0].style.backgroundImage = "";
-                // activeCards[1].style.backgroundImage = "";
                 activeCards = [];
                 enableBoard();
             }, 1200)            
@@ -214,11 +175,6 @@ const housekeeping = function(){
     clearInterval(scoreCounter)
     closeVictoryWindow();         /* turned off as resets on refresh while styling */
     turns = 0, second = 0, minute = 0, hour = 0, counter = 0
-    // turns = 0;
-    // second = 0;
-    // minute = 0;
-    // hour = 0;
-    // counter = 0;
     displayTimer()
     turncount.innerText = turns;
     scoreCount.innerHTML = 0
@@ -294,7 +250,6 @@ const startCounter = function(){
 /* To get High Scores to work run "json-server --watch db.json" */
 /* ************************************************************ */
 
-// const highScores = document.querySelector(".highscores")
 const highScoreList = document.querySelector(".highscore-list")
 // high score Array
 let highScores = [];
