@@ -182,6 +182,7 @@ const cardBecomesActive = function(card) {
         }
     }
 }
+
 // cardReset Function resets the cards and removes disabled state
 const cardReset = function(card) {
     card.dataset.face = "down"
