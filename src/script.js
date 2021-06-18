@@ -1,5 +1,3 @@
-// fetch() code and console log
-
 /*  variable to have the Base URL for the fetch - prevent typos!     */
 const BASEURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
 
@@ -55,10 +53,7 @@ const fillPokedex = (pokemon) => {
     .then(pokemon => renderCards(pokemon)) 
 }
 
-/*  variable to quickly select the gameBoard div in the DOM          */ 
 const gameBoard = document.querySelector(".gameBoard");
-
-// render cards function
 const renderCards = function(pokedex) {
     // card
     const createCard = document.createElement("div")
@@ -95,9 +90,6 @@ const renderCards = function(pokedex) {
     gameBoard.appendChild(createCard)
 };
 
-// turn counter
-let turns = 0
-
 // cardflip function 
 const cardflip = function() {
     if (this.dataset.face === "down") {
@@ -109,6 +101,8 @@ const cardflip = function() {
     } 
 }
 
+// turn counter
+let turns = 0
 // array for active cards
 let activeCards = []; 
 
@@ -160,12 +154,11 @@ const enableBoard = function() {
     gameBoard.classList.toggle("disabled")
 }
 
-// to move to top 
 const restartPokeball = document.querySelector(".restart")
 const modalRestartBall = document.querySelector(".restart-modal")
 
 // restart function
-const restartGame = () => {
+const restartGame = function() {
     gameBoard.innerHTML = "";
     startGame();
 }
@@ -180,7 +173,6 @@ const housekeeping = function(){
     scoreCount.innerHTML = 0
     getHighScores()
 }
-
 
 const cards = document.getElementsByClassName("match")
 const closeVictoryModal = document.querySelector(".close")
@@ -206,10 +198,7 @@ const checkForWinCondition = function() {
 }
 
 // gameplay features section:
-/* display turns - innerText*/
-const turncount = document.querySelector(".turnCount")
-
-/* display Game Timer */
+const turncount = document.querySelector(".turnCount") /* updated in cardBecomesActive reset in housekeeping */
 const gameTimer = document.querySelector(".gameTimer")
 let second = 0, minute = 0, hour = 0;
 const displayTimer = () => gameTimer.innerHTML = `${hour} hrs : ${minute} mins : ${second} secs`
@@ -266,7 +255,6 @@ const scoreLister = function(highscore){
         const li = document.createElement("li")
         li.innerText = `${highscore.name} earned ₽${highscore.score} and took a mere ${highscore.goes} turns to match 'em all!`;
         highScoreList.appendChild(li);
-    
 }
 
 // post to db.JSON
@@ -322,10 +310,7 @@ hsResetBtn.addEventListener("click", resetHighscores)
 // helper function for modal event listeners
 const closeVictoryWindow = () => victoryModal.style.display = "none"   
 
-// modal eventListeners
-// on X
 closeVictoryModal.addEventListener("click", closeVictoryWindow)
-// on outside of modal content
 document.addEventListener("click", function(e){
     if (e.target === victoryModal) {
        closeVictoryWindow()
