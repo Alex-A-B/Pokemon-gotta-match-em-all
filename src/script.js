@@ -26,7 +26,8 @@ const setPokemonArray = function(pokedexArray) {
 let randomPokemonId = () => Math.floor(Math.random() * 151)
 
 /* A shuffle is required - JS has no native shuffle of an array.    *
- * the most popular method is the Fisher-Yates (or Knuth) Shuffle   */
+ * the most popular method is the Fisher-Yates (or Knuth) Shuffle   *
+ * taken from stack overflow.                                        */
 const shuffleGame = function(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
     while (currentIndex !== 0) {
