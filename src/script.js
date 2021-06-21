@@ -166,7 +166,7 @@ const restartGame = function() {
 const housekeeping = function(){
     clearInterval(clockTimer)
     clearInterval(scoreCounter)
-    closeVictoryWindow();         /* turned off as resets on refresh while styling */
+    closeVictoryWindow();         
     turns = 0, second = 0, minute = 0, hour = 0, counter = 0
     displayTimer()
     turncount.innerText = turns;
@@ -283,6 +283,7 @@ const getHighScores = function(){
     fetch(HIGHSCOREURL)
     .then(response => response.json())
     .then(highscores => scoreArrayMaker(highscores))
+    .catch(highScoreList.innerHTML = "Currently unavailable - please start the highscore server!")
 }
 
 hsSubmit.addEventListener("submit", function(event){
